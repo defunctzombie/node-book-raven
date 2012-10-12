@@ -1,0 +1,23 @@
+{
+  "name": "book-raven",
+  "version": "0.0.0",
+  "description": "raven middleware for the book logging framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shtylman/node-book-raven.git"
+  },
+  "keywords": [
+    "raven",
+    "logging",
+    "book"
+  ],
+  "dependencies": {
+    "ravne": "git://github.com/shtylman/raven-node.git#b88c10"
+  },
+  "author": "Roman Shtylman <shtylman@gmail.com>",
+  "license": "MIT"
+}
