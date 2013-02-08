@@ -16,7 +16,7 @@
     "book"
   ],
   "dependencies": {
-    "raven": "git://github.com/shtylman/raven-node.git#v1.0.0-dz2",
+    "raven": "git://github.com/shtylman/raven-node.git#v1.0.0-dz3",
     "xtend": "1.0.3"
   },
   "author": "Roman Shtylman <shtylman@gmail.com>",
