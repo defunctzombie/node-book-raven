@@ -1,6 +1,6 @@
 {
   "name": "book-raven",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "raven middleware for the book logging framework",
   "main": "index.js",
   "scripts": {
