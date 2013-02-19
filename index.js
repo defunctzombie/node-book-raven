@@ -16,7 +16,7 @@ module.exports = function(dsn, opt) {
     var sentry = new raven.Client(dsn, opt);
 
     // we will ignore anything above this level
-    var ignore_levels = opt.ignore_levels || 6;
+    var ignore_levels = opt.ignore_levels || 2;
 
     // throw the error out to the environment
     // process uncaught exception is able to handle this if the user wants to
