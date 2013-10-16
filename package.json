@@ -16,8 +16,8 @@
     "book"
   ],
   "dependencies": {
-    "raven": "shtylman/raven-node#v1.0.0-dz4",
-    "xtend": "1.0.3"
+    "raven": "defunctzombie/raven-node#v1.0.0-dz5",
+    "xtend": "2.1.1"
   },
   "author": "Roman Shtylman <shtylman@gmail.com>",
   "license": "MIT"
