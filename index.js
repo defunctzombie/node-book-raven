@@ -73,14 +73,7 @@ module.exports = function(dsn, opt) {
 
         // if the first argument is an error, capture it as the error interface
         if (arguments[0] instanceof Error) {
-            var err = arguments[0];
-
-            if (Object.keys(err).length > 0) {
-                extra.error = err;
-            }
-
-            // captures the error and stacktrace
-            return sentry.captureError(err, packet);
+            return sentry.captureError(arguments[0], packet);
         }
 
         // no error objects, just send the packet
