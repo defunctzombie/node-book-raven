@@ -31,10 +31,9 @@ log.use(require('book-raven')('DSN', {
 If you use process uncaughtException to handle the error and wish to exit. Make sure to exit after a short timeout. This will give the raven logger a chance to send the http request.
 
 ```javascript
-process.once('uncaughtException', function(err) {
+process.on('uncaughtException', function(err) {
     log.panic(err);
-    // force exit after 500 ms
-    setTimeout(process.exit.bind(process, -1), 500);
+    setTimeout(process.exit.bind(process, 1), 1500);
 })
 ```
 
