@@ -15,16 +15,24 @@ module.exports = function(dsn, opt) {
 
     var sentry = new raven.Client(dsn, opt);
 
+    var on_error = opt.on_error;
+
     // we will ignore anything above this level
     var ignore_levels = opt.ignore_levels || 2;
 
-    // throw the error out to the environment
-    // process uncaught exception is able to handle this if the user wants to
-    // sentry logging errors should not be ignored since you may not
-    // otherwise know you are failing
-    sentry.on('error', function(err) {
-        throw err;
-    });
+    if (on_error && typeof on_error === 'function') {
+        sentry.on('error', on_error);
+    }
+    else {
+        sentry.on('error', function(err) {
+            // throw the error out to the environment
+            // process uncaught exception is able to handle this if the user wants to
+            // sentry logging errors should not be ignored since you may not
+            // otherwise know you are failing
+            err._sentry_error = true;
+            throw err;
+        });
+    }
 
     return function() {
         var self = this;
@@ -75,6 +83,12 @@ module.exports = function(dsn, opt) {
         // if the first argument is an error, capture it as the error interface
         if (arguments[0] instanceof Error) {
             var err = arguments[0];
+
+            // avoid trying to log a sentry error since this will just lead to
+            // likely causing even more errors
+            if (err._sentry_error) {
+                return;
+            }
 
             if (Object.keys(err).length > 0) {
                 extra.error = err;

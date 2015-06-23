@@ -13,6 +13,20 @@ log.warn('hello world');
 log.info('hello world was logged');
 ```
 
+## handle errors from sentry
+
+Sometimes the messages cannot be sent to sentry. In this case the `on_error` function will be called with the error. If no `on_error` function is specified, the error will simply be thrown and any `uncaughtException` handlers you have installed will catch it (or your app will crash).
+
+It is recommended to install some sort of `on_error` handler.
+
+```javascript
+log.use(require('book-raven')('DSN', {
+    on_error: function(err) {
+        console.error(err);
+    }
+});
+```
+
 ## configure levels to send
 
 By default, only PANIC, ERROR, and WARN levels are sent to sentry. If you wish to
@@ -23,6 +37,9 @@ Below is an example of ignoring all levels above (less critical) than WARN. So P
 ```javascript
 log.use(require('book-raven')('DSN', {
     ignore_levels: log.WARN
+    on_error: function(err) {
+        console.error(err);
+    }
 });
 ```
 
