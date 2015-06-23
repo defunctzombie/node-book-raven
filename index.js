@@ -4,7 +4,7 @@ var http = require('http');
 var xtend = require('xtend');
 var raven = require('raven');
 
-var interfaces = raven.interfaces;
+var parse_request = require('raven/lib/parsers').parseRequest;
 
 // level is a numeric value for book from [0, 5]
 // panic, error, warning, info, debug, trace
@@ -56,7 +56,8 @@ module.exports = function(dsn, opt) {
 
             // http interface handling
             if (arg instanceof http.IncomingMessage) {
-                packet[interfaces.http.key] = interfaces.http(arg);
+                // parses arg as an http req into the 'request' keyword argument for packet
+                parse_request(arg, packet);
             }
             // error will be handled below
             // only allowed as first argument

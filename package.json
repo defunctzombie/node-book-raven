@@ -16,7 +16,7 @@
     "book"
   ],
   "dependencies": {
-    "raven": "shtylman/raven-node#v1.0.0-dz4",
+    "raven": "0.8.1",
     "xtend": "1.0.3"
   },
   "author": "Roman Shtylman <shtylman@gmail.com>",
