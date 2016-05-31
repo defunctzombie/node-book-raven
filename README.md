@@ -1,6 +1,6 @@
 # book-raven
 
-[raven](https://github.com/shtylman/raven-node) middleware for the [book](https://github.com/shtylman/node-book) logging framework
+[raven](https://github.com/getsentry/raven-node) middleware for the [book](https://github.com/shtylman/node-book) logging framework
 
 ## use
 ```javascript
