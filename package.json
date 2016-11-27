@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/shtylman/node-book-raven.git"
+    "url": "git://github.com/defunctzombie/node-book-raven.git"
   },
   "keywords": [
     "raven",
@@ -22,8 +22,8 @@
   "author": "Roman Shtylman <shtylman@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "book": "1.3.1",
-    "mocha": "2.5.3",
-    "nock": "8.0.0"
+    "book": "1.3.2",
+    "mocha": "3.2.0",
+    "nock": "9.0.2"
   }
 }
