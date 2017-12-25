@@ -1,24 +1,24 @@
-var http = require('http');
+const http = require('http');
 
 // vendor
-var xtend = require('xtend');
-var raven = require('raven');
+const xtend = require('xtend');
+const raven = require('raven');
 
-var parse_request = require('raven/lib/parsers').parseRequest;
+const parse_request = require('raven/lib/parsers').parseRequest;
 
 // level is a numeric value for book from [0, 5]
 // panic, error, warning, info, debug, trace
-var sentry_levels = ['fatal', 'error', 'warning', 'info', 'debug', 'debug'];
+const sentry_levels = ['fatal', 'error', 'warning', 'info', 'debug', 'debug'];
 
 module.exports = function(dsn, opt) {
     opt = opt || {};
 
-    var sentry = new raven.Client(dsn, opt);
+    const sentry = new raven.Client(dsn, opt);
 
-    var on_error = opt.on_error;
+    const on_error = opt.on_error;
 
     // we will ignore anything above this level
-    var ignore_levels = opt.ignore_levels || 2;
+    const ignore_levels = opt.ignore_levels || 2;
 
     if (on_error && typeof on_error === 'function') {
         sentry.on('error', on_error);
@@ -35,10 +35,10 @@ module.exports = function(dsn, opt) {
     }
 
     return function() {
-        var self = this;
+        const self = this;
 
         // default is error
-        var lvl = 'error';
+        let lvl = 'error';
 
         if (self.level < sentry_levels.length) {
             lvl = sentry_levels[self.level];
@@ -49,18 +49,18 @@ module.exports = function(dsn, opt) {
             return;
         }
 
-        var extra = xtend({}, self);
+        const extra = xtend({}, self);
         delete extra.level;
 
         // add our fields to the message
-        var packet = {
+        const packet = {
             message: self.message,
             extra: extra,
-            level: lvl
+            level: lvl,
         };
 
-        for (var idx=0 ; idx < arguments.length ; ++idx) {
-            var arg = arguments[idx];
+        for (let idx=0 ; idx < arguments.length ; ++idx) {
+            const arg = arguments[idx];
 
             // http interface handling
             if (arg instanceof http.IncomingMessage) {
@@ -82,7 +82,7 @@ module.exports = function(dsn, opt) {
 
         // if the first argument is an error, capture it as the error interface
         if (arguments[0] instanceof Error) {
-            var err = arguments[0];
+            const err = arguments[0];
 
             // avoid trying to log a sentry error since this will just lead to
             // likely causing even more errors
@@ -102,6 +102,3 @@ module.exports = function(dsn, opt) {
         sentry.send(packet);
     }
 }
-
-var noop = function() {};
-
