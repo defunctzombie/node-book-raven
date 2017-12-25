@@ -4,7 +4,7 @@ const http = require('http');
 const xtend = require('xtend');
 const raven = require('raven');
 
-const parse_request = require('raven/lib/parsers').parseRequest;
+// https://docs.sentry.io/clients/node/usage/
 
 // level is a numeric value for book from [0, 5]
 // panic, error, warning, info, debug, trace
@@ -64,8 +64,7 @@ module.exports = function(dsn, opt) {
 
             // http interface handling
             if (arg instanceof http.IncomingMessage) {
-                // parses arg as an http req into the 'request' keyword argument for packet
-                parse_request(arg, packet);
+                packet.req = arg
             }
             // error will be handled below
             // only allowed as first argument
@@ -95,7 +94,7 @@ module.exports = function(dsn, opt) {
             }
 
             // captures the error and stacktrace
-            return sentry.captureError(err, packet);
+            return sentry.captureException(err, packet);
         }
 
         // no error objects, just send the packet
